@@ -8,22 +8,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-// Importar Component desde el núcleo de Angular
 var core_1 = require("@angular/core");
-// Decorador component, indicamos en que etiqueta se va a cargar la plantilla
-var AppComponent = (function () {
-    function AppComponent() {
-        this.title = 'APP Favoritos Titulos';
-        this.description = "Web SPA con Angular 2 para gestionar favoritos";
+var FavoritosListComponent = (function () {
+    function FavoritosListComponent() {
+        this.title = "Listado de marcadores";
+        this.favoritos = ['www.facebook.com', 'www.google.como', 'www.udemy.com'];
+        this.favoritosVisibles = false;
     }
-    return AppComponent;
+    FavoritosListComponent.prototype.showFavoritos = function () {
+        this.favoritosVisibles = true;
+    };
+    FavoritosListComponent.prototype.hideFavoritos = function () {
+        this.favoritosVisibles = false;
+    };
+    FavoritosListComponent.prototype.changeColor = function () {
+        this.color = "red";
+    };
+    return FavoritosListComponent;
 }());
-AppComponent = __decorate([
+FavoritosListComponent = __decorate([
     core_1.Component({
-        selector: 'my-app',
-        templateUrl: 'app/views/home.html'
+        selector: "favoritos-list",
+        templateUrl: "app/views/favoritos-list.html"
     }),
     __metadata("design:paramtypes", [])
-], AppComponent);
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+], FavoritosListComponent);
+exports.FavoritosListComponent = FavoritosListComponent;
+//# sourceMappingURL=favoritos-list-component.js.map
