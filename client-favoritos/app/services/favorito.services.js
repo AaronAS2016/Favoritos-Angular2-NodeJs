@@ -9,30 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var platform_browser_1 = require("@angular/platform-browser");
-var forms_1 = require("@angular/forms");
-var app_component_1 = require("./app.component");
-var favoritos_list_component_1 = require("./components/favoritos-list-component");
 var http_1 = require("@angular/http");
-var AppModule = (function () {
-    function AppModule() {
+require("rxjs/add/operator/map");
+var FavoritoService = (function () {
+    function FavoritoService(_http) {
+        this._http = _http;
+        this.url = 'http://localhost:3678/api/';
     }
-    return AppModule;
+    FavoritoService.prototype.getFavoritos = function () {
+        return this._http.get(this.url + 'favoritos')
+            .map(function (res) { return res.json(); });
+    };
+    return FavoritoService;
 }());
-AppModule = __decorate([
-    core_1.NgModule({
-        imports: [
-            platform_browser_1.BrowserModule,
-            forms_1.FormsModule,
-            http_1.HttpModule
-        ],
-        declarations: [
-            app_component_1.AppComponent,
-            favoritos_list_component_1.FavoritosListComponent
-        ],
-        bootstrap: [app_component_1.AppComponent]
-    }),
-    __metadata("design:paramtypes", [])
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+FavoritoService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], FavoritoService);
+exports.FavoritoService = FavoritoService;
+//# sourceMappingURL=favorito.services.js.map

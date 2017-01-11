@@ -9,18 +9,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var favorito_services_1 = require("../services/favorito.services");
 var FavoritosListComponent = (function () {
-    function FavoritosListComponent() {
+    function FavoritosListComponent(_favoritoService) {
+        this._favoritoService = _favoritoService;
         this.title = "Listado de marcadores";
     }
+    FavoritosListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        console.log('FavoritosListComponent Cargado!!');
+        this._favoritoService.getFavoritos().subscribe(function (result) {
+            console.log(result);
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+                alert('Error en la petición');
+            }
+        });
+    };
     return FavoritosListComponent;
 }());
 FavoritosListComponent = __decorate([
     core_1.Component({
         selector: "favoritos-list",
-        templateUrl: "app/views/favoritos-list.html"
+        templateUrl: "app/views/favoritos-list.html",
+        providers: [favorito_services_1.FavoritoService]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [favorito_services_1.FavoritoService])
 ], FavoritosListComponent);
 exports.FavoritosListComponent = FavoritosListComponent;
 //# sourceMappingURL=favoritos-list-component.js.map
