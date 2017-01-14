@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FavoritoService} from '../services/favorito.services';
 import {Favorito} from  '../models/favorito';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
     selector: "favoritos-list",
