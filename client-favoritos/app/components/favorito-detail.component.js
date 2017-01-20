@@ -10,18 +10,47 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 // Importar Component desde el núcleo de Angular
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var favorito_services_1 = require("../services/favorito.services");
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
 var FavoritoDetailComponent = (function () {
-    function FavoritoDetailComponent() {
+    function FavoritoDetailComponent(_FavoritoService, _route, _router) {
+        this._FavoritoService = _FavoritoService;
+        this._route = _route;
+        this._router = _router;
     }
+    FavoritoDetailComponent.prototype.ngOnInit = function () {
+        this.getFavorito();
+    };
+    FavoritoDetailComponent.prototype.getFavorito = function () {
+        var _this = this;
+        this._route.params.forEach(function (params) {
+            var id = params['id'];
+            _this._FavoritoService.getFavorito(id).subscribe(function (response) {
+                _this.favorito = response.favorito;
+                if (!_this.favorito) {
+                    _this._router.navigate(['/']);
+                }
+            }, function (error) {
+                _this.errorMessage = error;
+                if (_this.errorMessage != null) {
+                    console.log(_this.errorMessage);
+                    alert('Error en la petición');
+                }
+            });
+        });
+    };
     return FavoritoDetailComponent;
 }());
 FavoritoDetailComponent = __decorate([
     core_1.Component({
         selector: 'favorito-detail',
-        templateUrl: 'app/views/favoritos-detail.html'
+        templateUrl: 'app/views/favoritos-detail.html',
+        providers: [favorito_services_1.FavoritoService]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [favorito_services_1.FavoritoService,
+        router_1.ActivatedRoute,
+        router_1.Router])
 ], FavoritoDetailComponent);
 exports.FavoritoDetailComponent = FavoritoDetailComponent;
 //# sourceMappingURL=favorito-detail.component.js.map
