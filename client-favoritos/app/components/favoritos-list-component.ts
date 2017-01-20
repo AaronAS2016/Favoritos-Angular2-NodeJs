@@ -15,11 +15,13 @@ export class FavoritosListComponent implements OnInit{
     public title : string;
     public favoritos: Favorito[];
     public errorMessage;
+    public loading: boolean;
 
     constructor(
         private _favoritoService: FavoritoService
     ){
         this.title = "Listado de marcadores";
+        this.loading= true;
     }
     ngOnInit(){
         console.log('FavoritosListComponent Cargado!!');
@@ -30,6 +32,8 @@ export class FavoritosListComponent implements OnInit{
 
                 if (!this.favoritos){
                     alert('Error en el servidor');
+                }else {
+                    this.loading = false;
                 }
 
             },
