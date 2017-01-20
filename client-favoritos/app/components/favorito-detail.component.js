@@ -36,6 +36,7 @@ var FavoritoDetailComponent = (function () {
                 if (_this.errorMessage != null) {
                     console.log(_this.errorMessage);
                     alert('Error en la petición');
+                    _this._router.navigate(['/']);
                 }
             });
         });

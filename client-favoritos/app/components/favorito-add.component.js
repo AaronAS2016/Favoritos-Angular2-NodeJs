@@ -10,26 +10,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 // Importar Component desde el núcleo de Angular
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var favorito_services_1 = require("../services/favorito.services");
 var favorito_1 = require("../models/favorito");
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
 var FavoritoAddComponent = (function () {
-    function FavoritoAddComponent() {
+    function FavoritoAddComponent(_favoritoService, _route, _router) {
+        this._favoritoService = _favoritoService;
+        this._route = _route;
+        this._router = _router;
         this.title_section = 'Crear favorito';
     }
     FavoritoAddComponent.prototype.ngOnInit = function () {
-        this.favorito = new favorito_1.Favorito("", "", "");
+        this.favorito = new favorito_1.Favorito("", "", "", "");
     };
     FavoritoAddComponent.prototype.onSubmit = function () {
+        var _this = this;
         console.log(this.favorito);
+        this._favoritoService.addFavorito(this.favorito).subscribe(function (response) {
+            if (!_this.favorito) {
+                alert('Error en el servidor');
+            }
+            else {
+                _this.favorito = response.favorito;
+                _this._router.navigate(['/marcador', _this.favorito._id]);
+            }
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+                alert('Error en la petición');
+                _this._router.navigate(['/']);
+            }
+        });
     };
     return FavoritoAddComponent;
 }());
 FavoritoAddComponent = __decorate([
     core_1.Component({
         selector: 'favorito-add',
-        templateUrl: 'app/views/favorito-add.html'
+        templateUrl: 'app/views/favorito-add.html',
+        providers: [favorito_services_1.FavoritoService]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [favorito_services_1.FavoritoService,
+        router_1.ActivatedRoute,
+        router_1.Router])
 ], FavoritoAddComponent);
 exports.FavoritoAddComponent = FavoritoAddComponent;
 //# sourceMappingURL=favorito-add.component.js.map

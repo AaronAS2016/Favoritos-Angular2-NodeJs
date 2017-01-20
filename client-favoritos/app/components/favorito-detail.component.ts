@@ -49,7 +49,8 @@ export class FavoritoDetailComponent implements OnInit{
 
                     if(this.errorMessage !=null){
                         console.log(this.errorMessage);
-                        alert('Error en la petición')
+                        alert('Error en la petición');
+                        this._router.navigate(['/']);
                     }
                 }
             );
