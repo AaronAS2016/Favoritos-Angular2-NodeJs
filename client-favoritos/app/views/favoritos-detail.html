@@ -1,5 +1,5 @@
 <div class="favorito-box" *ngIf="favorito">
     <h1>{{favorito.title}}</h1>
-    <p class="url">{{favorito.url}}</p>
+    <a href="{{favorito.url}}" target="_blank" class="url">{{favorito.url}}</a>
     <p class="description">{{favorito.description}}</p>
 </div>

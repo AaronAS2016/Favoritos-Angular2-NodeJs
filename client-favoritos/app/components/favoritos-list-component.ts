@@ -16,6 +16,7 @@ export class FavoritosListComponent implements OnInit{
     public favoritos: Favorito[];
     public errorMessage;
     public loading: boolean;
+    public confirmado;
 
     constructor(
         private _favoritoService: FavoritoService
@@ -24,6 +25,20 @@ export class FavoritosListComponent implements OnInit{
         this.loading= true;
     }
     ngOnInit(){
+        console.log('FavoritosListComponent Cargado!!');
+        this.getFavoritos();
+
+    }
+    onBorrarConfirm(id){
+        this.confirmado = id;
+    }
+
+    onCancelarConfirm(id){
+        this.confirmado = null;
+
+    }
+
+    getFavoritos(){
         console.log('FavoritosListComponent Cargado!!');
         this._favoritoService.getFavoritos().subscribe(
             result =>{
@@ -47,5 +62,23 @@ export class FavoritosListComponent implements OnInit{
             }
         );
     }
+    onBorrarFavorito(id){
+        this._favoritoService.deleteFavorito(id).subscribe(
+            result =>{
+                if (!result.message){
+                    alert('Error en la petición ');
+                }
+                this.getFavoritos();
 
+            },
+            error =>{
+                this.errorMessage = <any>error;
+
+                if(this.errorMessage !=null){
+                    console.log(this.errorMessage);
+                    alert('Error en la petición');
+                }
+            }
+        );
+    }
 }

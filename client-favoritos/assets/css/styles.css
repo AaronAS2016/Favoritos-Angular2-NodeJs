@@ -167,4 +167,26 @@ footer{
 .loading{
     margin: 25px;
 }
+.seguro{
+    height: 65px;
+    position: absolute;
+    background: #E23237;
+    margin-top: -43px;
+    border-radius: 4px;
+
+}
+.seguro > p{
+    font-size:14px;
+    margin-left:10%;
+    color: white;
+    width: 80%;
+    vertical-align: middle;
+    text-align: center;
+}
+.seguro > a{
+    top: -5px;
+    left:50%;
+
+     position: relative;
+}
 
